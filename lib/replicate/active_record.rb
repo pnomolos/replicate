@@ -167,7 +167,7 @@ module Replicate
           if reflection.macro == :has_and_belongs_to_many
             dump_has_and_belongs_to_many_replicant(dumper, reflection)
           end
-          __send__(reflection.name).reset # clear to allow GC
+          __send__(reflection.name).reset if __send__(reflection.name).respond_to?(:reset) # clear to allow GC
         else
           warn "error: #{self.class}##{association} is invalid"
         end
